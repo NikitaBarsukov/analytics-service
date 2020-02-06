@@ -7,19 +7,20 @@ buildscript {
     }
 }
 
+
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+
 bootJar {
     baseName = 'analytics-service'
     version = '0.1.0'
-    mainClassName = "com.Application"
-    
+    mainClassName = "ru.spstu.analytics.Application"
 
 }
+
 
 repositories {
     mavenCentral()
@@ -28,29 +29,17 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'commons-io:commons-io:2.4'
     compile 'io.springfox:springfox-swagger2:2.9.2'
     compile 'io.springfox:springfox-swagger-ui:2.9.2'
     compileOnly 'org.projectlombok:lombok:1.18.10'
-    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     testCompile 'junit:junit:4.12'
 }
 
-task stage() {
-    dependsOn clean
-}
-
-bootJar.mustRunAfter clean
-
-task copyToLib(type: Copy) {
-    into "$buildDir/server"
-    from(configurations.compile) {
-        include "webapp-runner*"
-    }
-}
 
 bootRun {
 
