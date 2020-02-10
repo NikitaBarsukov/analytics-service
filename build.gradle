@@ -1,9 +1,11 @@
 buildscript {
     repositories {
         mavenCentral()
+
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE"
+      
     }
 }
 
@@ -13,7 +15,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-bootJar.mustRunAfter clean 
+
 
 bootJar {
     baseName = 'app'
@@ -23,10 +25,12 @@ bootJar {
 }
 
 
-task stage {
-    dependsOn build
-}
-
+//heroku {
+//    appName = 'analytics-service'
+//    processTypes(
+//            web: "java -jar build/libs/app.jar"
+//    )
+//}
 
 
 repositories {
