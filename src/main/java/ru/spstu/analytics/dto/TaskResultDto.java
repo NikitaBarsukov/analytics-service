@@ -7,6 +7,6 @@ import lombok.Data;
 public class TaskResultDto {
     //TODO
     // Define a result query
-    // Сhoose a model mapper (custom or use modelmapper tool instead)
+    // Сhoose a ru.spstu.analytics.model mapper (custom or use modelmapper tool instead)
 
 }

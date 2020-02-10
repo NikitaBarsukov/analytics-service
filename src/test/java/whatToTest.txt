@@ -1,1 +1,1 @@
-unit-test of the model -> DTO converting
+unit-test of the ru.spstu.analytics.model -> DTO converting
