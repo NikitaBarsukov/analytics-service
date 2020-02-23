@@ -48,7 +48,7 @@ public class TaskController {
     }
 
     @ApiOperation(value = "Shows all available logs")
-    @GetMapping("/GetAllLogs")
+    @GetMapping("/getAllLogs")
     public LogsInfoDto getlogsInfo(){
         return findAllLogsService.findAllLogs();
     }
