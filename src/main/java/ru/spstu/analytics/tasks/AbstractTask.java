@@ -13,4 +13,6 @@ public abstract class AbstractTask {
     private String name;
 
     private Long id;
+
+
 }

@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.spstu.analytics.dto.LogsInfoDto;
+import ru.spstu.analytics.service.FindAllLogsService;
 import ru.spstu.analytics.service.FindAllTasksService;
 
 import javax.inject.Inject;
@@ -21,9 +23,11 @@ import java.io.IOException;
 public class TaskController {
 
     private final FindAllTasksService findAllTasksService;
+    private final FindAllLogsService findAllLogsService;
 
     @Inject
-    public TaskController(FindAllTasksService findAllTasksService) {
+    public TaskController(FindAllTasksService findAllTasksService, FindAllLogsService findAllLogsService) {
+        this.findAllLogsService = findAllLogsService;
         this.findAllTasksService = findAllTasksService;
     }
 
@@ -41,5 +45,11 @@ public class TaskController {
         return new ObjectMapper().writeValueAsString(
                 findAllTasksService.findAllTasks()
         );
+    }
+
+    @ApiOperation(value = "Shows all available logs")
+    @GetMapping("/GetAllLogs")
+    public LogsInfoDto getlogsInfo(){
+        return findAllLogsService.findAllLogs();
     }
 }

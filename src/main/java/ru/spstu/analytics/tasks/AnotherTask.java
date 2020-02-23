@@ -4,4 +4,6 @@ public class AnotherTask extends AbstractTask {
     public AnotherTask() {
         super("Another task", 2L);
     }
+
+    
 }
