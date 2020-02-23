@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.spstu.analytics.dto.LogsInfoDto;
@@ -12,6 +13,8 @@ import ru.spstu.analytics.service.FindAllLogsService;
 import ru.spstu.analytics.service.FindAllTasksService;
 
 import javax.inject.Inject;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 @RestController
@@ -33,9 +36,9 @@ public class TaskController {
 
     //TODO add task id parameter
     @ApiOperation(value = "Starts execute some task by its id(not implemented yet)")
-    @GetMapping("/execute")
-    public String hello(){
-        return "Not implemented yet, guys =(";
+    @GetMapping("/execute/{taskId}")
+    public String hello(@PathVariable @NotNull @DecimalMin("0") Long taskId){
+        return "I am running " + taskId;
     }
 
 
