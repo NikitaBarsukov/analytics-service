@@ -6,28 +6,27 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.springframework.stereotype.Service;
+import ru.spstu.analytics.dto.TaskInfoDto;
 import ru.spstu.analytics.tasks.AbstractTask;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
 public class FindAllTasksServiceImpl implements FindAllTasksService {
 
     @Override
-    public Map findAllTasks() throws ReflectionsException,
+    public TaskInfoDto findAllTasks() throws ReflectionsException,
             IllegalAccessException, InstantiationException {
-        Map<String, Long> result = new HashMap<>();
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .setScanners(new SubTypesScanner())
                 .setUrls(ClasspathHelper.forPackage("ru.spstu.analytics.tasks")));
         Set<Class<? extends AbstractTask>> allClasses = reflections.getSubTypesOf(AbstractTask.class);
+        List<AbstractTask> taskList = new ArrayList<AbstractTask>();
         for (Class clazz: allClasses){
             AbstractTask task = (AbstractTask) clazz.newInstance();
-            result.put(task.getName(), task.getId());
+            taskList.add(task);
         }
-        return result;
+        return new TaskInfoDto(taskList);
     }
 }

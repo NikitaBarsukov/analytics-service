@@ -1,9 +1,9 @@
 package ru.spstu.analytics.service;
 
-import java.util.Map;
+import ru.spstu.analytics.dto.TaskInfoDto;
 
 public interface FindAllTasksService {
 
-    Map findAllTasks() throws IllegalAccessException, InstantiationException, ClassNotFoundException;
+    TaskInfoDto findAllTasks() throws IllegalAccessException, InstantiationException, ClassNotFoundException;
 
 }

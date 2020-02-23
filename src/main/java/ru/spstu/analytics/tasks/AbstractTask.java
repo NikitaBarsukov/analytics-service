@@ -5,14 +5,18 @@ import lombok.Getter;
 
 //TODO Define this with Interface
 // add JDBC
+// Migrate to builder pattern
 
 @Getter
 @AllArgsConstructor
 public abstract class AbstractTask {
 
-    private String name;
-
     private Long id;
 
+    private String title;
+
+    private String description;
+
+    Parameters parameters;
 
 }

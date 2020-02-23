@@ -43,7 +43,7 @@ public class TaskController {
 
 
     @ApiOperation(value = "Shows all available tasks")
-    @GetMapping("/getAllTasks")
+    @GetMapping(value = "/getAllTasks", produces = "application/json")
     public String getAllTasks() throws IllegalAccessException, ClassNotFoundException, InstantiationException, IOException {
         return new ObjectMapper().writeValueAsString(
                 findAllTasksService.findAllTasks()
@@ -51,7 +51,7 @@ public class TaskController {
     }
 
     @ApiOperation(value = "Shows all available logs")
-    @GetMapping("/getAllLogs")
+    @GetMapping(value = "/getAllLogs", produces = "application/json")
     public LogsInfoDto getlogsInfo(){
         return findAllLogsService.findAllLogs();
     }

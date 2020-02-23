@@ -15,7 +15,7 @@ public class UniqUsernames extends AbstractTask implements PythonScript {
     Logger logger = LoggerFactory.getLogger(UniqUsernames.class);
 
     public UniqUsernames() {
-        super("Another task", 2L);
+        super( 2L, "Unique usernames", "Get all unique usernames", new Parameters());
     }
 
     @Override
