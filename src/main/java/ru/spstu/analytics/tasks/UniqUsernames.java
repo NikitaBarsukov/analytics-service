@@ -22,7 +22,7 @@ public class UniqUsernames extends AbstractTask implements PythonScript {
     public int run() throws InterruptedException, IOException {
 
         String folder = "C:/Users/Nikita/Desktop/edu/bin";
-        String[] command = {"cmd", "%PYTHON_HOME%\\python.exe %PY_SCRIPT_DIR%show_user_way.py %DATABASE_NAME% %USER_NAME% %RESULT_DIR%08_show_user_way.csv 307144"};
+        String command = "python.exe C:\\Users\\Nikita\\Desktop\\edu\\libs\\scriptsshow_user_way.py OpenEduDatabas \"OPENEDU\" 08_show_user_way.csv 307144";
         String[] command1 = {"cmd", "/c", "echo %PY_SCRIPT_DIR%"};
         String[] envp = {
                 "PYTHON_HOME=..\\workdir\\installed_soft\\python",
@@ -54,9 +54,9 @@ public class UniqUsernames extends AbstractTask implements PythonScript {
         return 0;
     }
 
-//    public static void main(String[] args) throws IOException, InterruptedException {
-//        UniqUsernames up = new UniqUsernames();
-//        up.run();
-//    }
+    public static void main(String[] args) throws IOException, InterruptedException {
+        UniqUsernames up = new UniqUsernames();
+        up.run();
+    }
 
 }
