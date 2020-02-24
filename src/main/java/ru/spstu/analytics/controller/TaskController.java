@@ -40,7 +40,15 @@ public class TaskController {
     @ApiOperation(value = "Starts execute some task by its id(not implemented yet)")
     @GetMapping(value = "/execute/{taskId}", produces = "text/html")
     public String hello(@PathVariable @NotNull @DecimalMin("0") Long taskId) throws IOException, InterruptedException {
-        return executorService.execute(taskId);
+//        return executorService.execute(taskId);
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "    <title>Hello</title>\n" +
+                "</head>\n" +
+                "<body>\n" + "<text>Hello</text>" +
+                "</body>\n" +
+                "</html>";
     }
 
 

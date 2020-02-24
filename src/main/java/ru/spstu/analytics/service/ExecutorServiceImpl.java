@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class ExecutorServiceImpl implements ExecutorService {
     @Override
     public String execute(Long taskId) throws IOException, InterruptedException {
-        Stream<String> lines = Files.lines(Paths.get("C:/Users/Nikita/Documents/work/analytics-service/src/main/generated_pages/userway.html"));
+        Stream<String> lines = Files.lines(Paths.get("resources/userway.html"));
         String data = lines.collect(Collectors.joining("\n"));
         lines.close();
 //        UniqUsernames up = new UniqUsernames();
