@@ -1,11 +1,12 @@
 package ru.spstu.analytics.controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import ru.spstu.analytics.dto.LogsInfoDto;
+import ru.spstu.analytics.dto.TaskInfoDto;
+import ru.spstu.analytics.service.ExecutorService;
 import ru.spstu.analytics.service.FindAllLogsService;
 import ru.spstu.analytics.service.FindAllTasksService;
 
@@ -24,33 +25,35 @@ import java.io.IOException;
 public class TaskController {
 
     private final FindAllTasksService findAllTasksService;
-    private final FindAllLogsService findAllLogsService;
+    private final FindAllLogsService  findAllLogsService;
+    private final ExecutorService     executorService;
 
     @Inject
-    public TaskController(FindAllTasksService findAllTasksService, FindAllLogsService findAllLogsService) {
+    public TaskController(FindAllTasksService findAllTasksService,
+                          FindAllLogsService findAllLogsService,
+                          ExecutorService executorService) {
         this.findAllLogsService = findAllLogsService;
         this.findAllTasksService = findAllTasksService;
+        this.executorService = executorService;
     }
 
-    //TODO add task id parameter
     @ApiOperation(value = "Starts execute some task by its id(not implemented yet)")
-    @GetMapping("/execute/{taskId}")
-    public String hello(@PathVariable @NotNull @DecimalMin("0") Long taskId){
-        return "I am running " + taskId;
+    @GetMapping(value = "/execute/{taskId}", produces = "text/html")
+    public String hello(@PathVariable @NotNull @DecimalMin("0") Long taskId) throws IOException, InterruptedException {
+        return executorService.execute(taskId);
     }
 
 
     @ApiOperation(value = "Shows all available tasks")
     @GetMapping(value = "/getAllTasks", produces = "application/json")
-    public String getAllTasks() throws IllegalAccessException, ClassNotFoundException, InstantiationException, IOException {
-        return new ObjectMapper().writeValueAsString(
-                findAllTasksService.findAllTasks()
-        );
+    public TaskInfoDto getAllTasks() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
+        return findAllTasksService.findAllTasks();
+
     }
 
     @ApiOperation(value = "Shows all available logs")
     @GetMapping(value = "/getAllLogs", produces = "application/json")
-    public LogsInfoDto getlogsInfo(){
+    public LogsInfoDto getlogsInfo() {
         return findAllLogsService.findAllLogs();
     }
 }

@@ -7,36 +7,43 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class UniqUsernames extends AbstractTask implements PythonScript {
 
-
     Logger logger = LoggerFactory.getLogger(UniqUsernames.class);
 
     public UniqUsernames() {
-        super( 2L, "Unique usernames", "Get all unique usernames", new Parameters());
+        super(2L, "Unique usernames", "Get all unique usernames", new Parameters());
     }
 
     @Override
     public int run() throws InterruptedException, IOException {
 
         String folder = "C:/Users/Nikita/Desktop/edu/bin";
-        String command = "python.exe C:\\Users\\Nikita\\Desktop\\edu\\libs\\scriptsshow_user_way.py OpenEduDatabas \"OPENEDU\" 08_show_user_way.csv 307144";
-        String[] command1 = {"cmd", "/c", "echo %PY_SCRIPT_DIR%"};
-        String[] envp = {
-                "PYTHON_HOME=..\\workdir\\installed_soft\\python",
-                "PY_SCRIPT_DIR=C:\\Users\\Nikita\\Desktop\\edu\\bin\\..\\libs\\scripts\\",
-                "USER_NAME=\"OPENEDU\"",
-                "DATABASE_NAME=OpenEduDatabase",
-                "RESULT_DIR=C:\\Users\\Nikita\\Desktop\\edu\\bin\\..\\result\\",
-                "ID=307144",
+        String[] command = {"cmd", "/c", "%PYTHON_HOME%\\python.exe %PY_SCRIPT_DIR%show_user_way.py %DATABASE_NAME% %USER_NAME% %RESULT_DIR%08_show_user_way.txt 307144"};
 
-        };
+        Map<String, String> variableMap = Stream.of(new String[][]{
+                {"PYTHON_HOME", "..\\workdir\\installed_soft\\python"},
+                {"PY_SCRIPT_DIR", "C:\\Users\\Nikita\\Desktop\\edu\\bin\\..\\libs\\scripts\\"},
+                {"USER_NAME", "\"OPENEDU\""},
+                {"DATABASE_NAME", "OpenEduDatabase"},
+                {"RESULT_DIR", "C:\\Users\\Nikita\\Desktop\\edu\\bin\\..\\result\\"},
+                {"ID", "307144"},
+        }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+
+        ProcessBuilder builder = new ProcessBuilder(command);
+        Map<String, String> env = builder.environment();
+
+        variableMap.forEach(env::putIfAbsent);
+        builder.directory(new File(folder));
+        Process p = builder.start();
+        p.waitFor();
 
         logger.info("Start running");
-        final Runtime r = Runtime.getRuntime();
-        final Process p = r.exec(command, envp, new File(folder));
         final int returnCode = p.waitFor();
         System.out.println(returnCode);
 
@@ -53,10 +60,4 @@ public class UniqUsernames extends AbstractTask implements PythonScript {
         }
         return 0;
     }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-        UniqUsernames up = new UniqUsernames();
-        up.run();
-    }
-
 }

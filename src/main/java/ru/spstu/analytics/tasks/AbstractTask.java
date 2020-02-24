@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 //TODO Define this with Interface
-// add JDBC
 // Migrate to builder pattern
 
 @Getter
