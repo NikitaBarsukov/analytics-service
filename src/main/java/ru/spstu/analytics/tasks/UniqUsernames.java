@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 public class UniqUsernames extends AbstractTask implements PythonScript {
 
-    Logger logger = LoggerFactory.getLogger(UniqUsernames.class);
+    private Logger logger = LoggerFactory.getLogger(UniqUsernames.class);
 
     public UniqUsernames() {
         super(2L, "Unique usernames", "Get all unique usernames", new Parameters());

@@ -41,8 +41,12 @@ dependencies {
     compile 'org.jboss.logging:jboss-logging:3.4.1.Final'
     compile 'javax.inject:javax.inject:1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
-    compileOnly 'org.projectlombok:lombok:1.18.10'
-    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
     testCompile 'junit:junit:4.12'
 }
 

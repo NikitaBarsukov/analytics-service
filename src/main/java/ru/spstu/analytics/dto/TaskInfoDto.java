@@ -9,5 +9,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class TaskInfoDto {
-    List<AbstractTask> tasks;
+    List<AbstractTask> mainTasks;
+    List<AbstractTask> utilityTasks;
 }

@@ -1,21 +1,26 @@
 package ru.spstu.analytics.tasks;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-//TODO Define this with Interface
-// Migrate to builder pattern
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor // only for @NotNull or final vars
 public abstract class AbstractTask {
 
-    private Long id;
+    final private Long id;
 
-    private String title;
+    final private String title;
 
-    private String description;
+    final private String description;
 
-    Parameters parameters;
+    final Parameters parameters;
 
+    @Getter
+    @Setter
+    public boolean isUtility = false;
+
+    public boolean isNotUtility(){
+        return !isUtility();
+    }
 }

@@ -37,18 +37,10 @@ public class TaskController {
         this.executorService = executorService;
     }
 
-    @ApiOperation(value = "Starts execute some task by its id(not implemented yet)")
+    @ApiOperation(value = "Starts execute some task by its id and userId")
     @GetMapping(value = "/execute/{taskId}/{userId}", produces = "text/html")
-    public String hello(@PathVariable @NotNull @DecimalMin("0") Long taskId, @PathVariable String userId) throws IOException, InterruptedException {
-//        return executorService.execute(taskId);
-        return "<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "    <title>Hello</title>\n" +
-                "</head>\n" +
-                "<body>\n" + "<text>Hello im running "+ taskId+"</text>" +
-                "</body>\n" +
-                "</html>";
+    public String execute(@PathVariable @NotNull @DecimalMin("0") Long taskId, @PathVariable String userId) throws IOException, InterruptedException {
+        return executorService.execute(taskId);
     }
 
 
@@ -64,4 +56,11 @@ public class TaskController {
     public LogsInfoDto getlogsInfo() {
         return findAllLogsService.findAllLogs();
     }
+
+
+
+
+
+
+
 }

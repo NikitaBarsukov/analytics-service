@@ -16,7 +16,7 @@ public class FindAllLogsServiceImpl implements FindAllLogsService {
                         1,
                         "Philosophy logs",
                         "autumn 2018",
-                        18000
+                        18312
                 ),
                 new LogsInfo(
                         2,

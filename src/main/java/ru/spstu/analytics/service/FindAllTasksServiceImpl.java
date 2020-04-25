@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import ru.spstu.analytics.dto.TaskInfoDto;
 import ru.spstu.analytics.tasks.AbstractTask;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -22,11 +26,24 @@ public class FindAllTasksServiceImpl implements FindAllTasksService {
                 .setScanners(new SubTypesScanner())
                 .setUrls(ClasspathHelper.forPackage("ru.spstu.analytics.tasks")));
         Set<Class<? extends AbstractTask>> allClasses = reflections.getSubTypesOf(AbstractTask.class);
-        List<AbstractTask> taskList = new ArrayList<AbstractTask>();
+        List<AbstractTask> taskList = new ArrayList<>();
         for (Class clazz: allClasses){
             AbstractTask task = (AbstractTask) clazz.newInstance();
             taskList.add(task);
         }
-        return new TaskInfoDto(taskList);
+        return new TaskInfoDto(
+                taskList.stream()
+                        .filter(AbstractTask::isNotUtility)
+                        .collect(Collectors.toList())
+                        .stream()
+                        .sorted(Comparator.comparingLong(AbstractTask::getId))
+                        .collect(Collectors.toList()),
+                taskList.stream()
+                        .filter(AbstractTask::isUtility)
+                        .collect(Collectors.toList())
+                        .stream()
+                        .sorted(Comparator.comparingLong(AbstractTask::getId))
+                        .collect(Collectors.toList())
+                );
     }
 }
